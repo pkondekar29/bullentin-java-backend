@@ -1,0 +1,44 @@
+management:
+  endpoints:
+    enabled-by-default: true
+    shutdown:
+      enabled: false
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+    repository-sizes:
+      cache:
+        time-to-live: 10s
+---
+spring:
+  devtools:
+    remote:
+      secret: secret
+---
+spring:
+  profiles: default
+  datasource:
+    jmx-enabled: true
+    platform: h2
+  jpa:
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+
+---
+spring:
+  profiles: postgres
+  datasource:
+    platform: pg
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: "my?ecret"
+  jpa:
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      ddl-auto: update
